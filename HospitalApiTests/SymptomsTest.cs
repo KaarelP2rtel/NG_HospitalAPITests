@@ -27,7 +27,7 @@ namespace HospitalApiTests
             var resultDTO = await result.Content.ReadAsAsync<SymptomDTO>();
 
             //Proper Status Code
-            Assert.Equals(result.StatusCode, HttpStatusCode.Created);
+            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
 
             //Returns object
             Assert.IsNotNull(resultDTO);
@@ -46,7 +46,7 @@ namespace HospitalApiTests
             var resultContent = await result.Content.ReadAsAsync<List<SymptomDTO>>();
 
             //Proper Status Code
-            Assert.Equals(result.StatusCode, HttpStatusCode.Created);
+            Assert.AreEqual(HttpStatusCode.OK,result.StatusCode);
 
             //Returns object
             Assert.IsNotNull(result);
@@ -89,7 +89,8 @@ namespace HospitalApiTests
             var resultDTO = await result.Content.ReadAsAsync<SymptomDTO>();
 
             //Proper Status Code
-            Assert.Equals(result.StatusCode, HttpStatusCode.BadRequest);
+            Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode);
+            
 
             //Does not return result
             Assert.IsNull(resultDTO);

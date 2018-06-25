@@ -27,7 +27,7 @@ namespace HospitalApiTests
                 Symptoms = new List<SymptomDTO>()
 
             };
-            Random r = new Random();
+            
             for (int i = 0; i < 3; i++)
             {
                 disease.Symptoms.Add(symptoms.ElementAt(i));
@@ -39,7 +39,7 @@ namespace HospitalApiTests
             var resultDTO = await result.Content.ReadAsAsync<DiseaseDTO>();
 
             //Proper Status Code
-            Assert.Equals(result.StatusCode, HttpStatusCode.Created);
+            Assert.AreEqual(HttpStatusCode.Created,result.StatusCode);
 
             //Does not return result
             Assert.IsNull(resultDTO);
@@ -66,7 +66,7 @@ namespace HospitalApiTests
             var resultContent = await result.Content.ReadAsAsync<List<DiseaseDTO>>();
 
             //Proper Status Code
-            Assert.Equals(result.StatusCode, HttpStatusCode.OK);
+            Assert.AreEqual(HttpStatusCode.OK,result.StatusCode);
 
             //Returns Something
             Assert.IsNotNull(result);
@@ -140,7 +140,7 @@ namespace HospitalApiTests
 
 
                 //Proper Status Code
-                Assert.Equals(result.StatusCode, HttpStatusCode.BadRequest);
+                Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode);
 
                 //Does not return result
                 Assert.IsNull(resultDTO);
