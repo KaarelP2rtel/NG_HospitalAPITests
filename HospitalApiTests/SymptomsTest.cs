@@ -84,18 +84,12 @@ namespace HospitalApiTests
 
 
             var result = await client.PostAsJsonAsync(symptomsRoute, symptom);
-            var resultDTO = await result.Content.ReadAsAsync<SymptomDTO>();
-
+            
             //Proper Status Code
             Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode);
             
 
-            //Does not return result
-            Assert.IsNull(resultDTO);
-
-            //Does contain feedback
-            var feedback = await result.Content.ReadAsAsync<FeedbackDTO>();
-            Assert.IsNotNull(feedback?.Result);
+          
             }
 
         }

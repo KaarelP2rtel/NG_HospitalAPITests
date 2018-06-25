@@ -31,7 +31,7 @@ namespace HospitalApiTests
             };
 
             var result = await client.GetAsync("");
-            var feedbackDTO = result.Content.ReadAsAsync<FeedbackDTO>();
+            
 
             Assume.That(result.IsSuccessStatusCode, "Api is not up");
 
@@ -40,10 +40,7 @@ namespace HospitalApiTests
         }
 
     }
-    public class FeedbackDTO
-    {
-        public String Result { get; set; }
-    }
+   
     
     
 }
