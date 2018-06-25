@@ -39,7 +39,7 @@ namespace HospitalApiTests
             var resultDTO = await result.Content.ReadAsAsync<DiseaseDTO>();
 
             //Proper Status Code
-            Assert.AreEqual(HttpStatusCode.Created,result.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK,result.StatusCode);
 
             //Does not return result
             Assert.IsNull(resultDTO);
@@ -50,7 +50,7 @@ namespace HospitalApiTests
             Assert.NotNull(resultDTO.Symptoms);
 
             //Returns with symptoms
-            var symptom = resultDTO.Symptoms.First();
+            var symptom = resultDTO.Symptoms.FirstOrDefault();
             Assert.NotNull(symptom?.Id);
             Assert.NotNull(symptom?.Name);
 
@@ -72,13 +72,13 @@ namespace HospitalApiTests
             Assert.IsNotNull(result);
 
             //Returns all fields
-            var disease = resultContent.First();
+            var disease = resultContent.FirstOrDefault();
             Assert.NotNull(disease.Id);
             Assert.NotNull(disease.Name);
             Assert.NotNull(disease.Symptoms);
 
             //Disease contains symptoms
-            var symptom = disease.Symptoms.First();
+            var symptom = disease.Symptoms.FirstOrDefault();
             Assert.NotNull(symptom.Id);
             Assert.NotNull(symptom.Name);
 

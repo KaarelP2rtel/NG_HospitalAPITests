@@ -10,10 +10,10 @@ namespace HospitalApiTests
     public class BaseTest
     {
         #region Variables
-        public static string baseUri = "https://localhost:44383/api";
-        public static string diseasesRoute = "/diseases";
+        public static string baseUri = "https://localhost:44383/api/";
+        public static string diseasesRoute = "diseases";
         public static string greatestDiseasesRoute = $"{diseasesRoute}/greatest";
-        public static string symptomsRoute = "/symptoms";
+        public static string symptomsRoute = "symptoms";
         public static string greatestSymptomsRoute = $"{symptomsRoute}/greatest";
         public static string symptomsCountRoute = $"{symptomsRoute}/count";
         public static string findDiseasesRoute = $"{diseasesRoute}/find";

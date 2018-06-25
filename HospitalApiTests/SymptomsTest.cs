@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,12 @@ namespace HospitalApiTests
             };
 
 
-            var result = await client.PostAsJsonAsync<SymptomDTO>(symptomsRoute, symptom);
+            var result = await client.PostAsJsonAsync(symptomsRoute, symptom);
+            TestContext.WriteLine(await result.Content.ReadAsStringAsync());
             var resultDTO = await result.Content.ReadAsAsync<SymptomDTO>();
-
+            
             //Proper Status Code
-            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
 
             //Returns object
             Assert.IsNotNull(resultDTO);
@@ -51,9 +53,9 @@ namespace HospitalApiTests
             //Returns object
             Assert.IsNotNull(result);
 
-            var symptom = resultContent.First();
-            Assert.NotNull(symptom.Id);
-            Assert.NotNull(symptom.Name);
+            var symptom = resultContent.FirstOrDefault();
+            Assert.NotNull(symptom?.Id);
+            Assert.NotNull(symptom?.Name);
             
 
 
@@ -76,11 +78,7 @@ namespace HospitalApiTests
                     Id=1,
                     Name="asd",
                 },
-                //Empty symptom
-                new SymptomDTO
-                {
-
-                },
+               
             };
             foreach(var symptom in testList) { 
 
@@ -108,11 +106,13 @@ namespace HospitalApiTests
     }
     public class SymptomDTO
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Id { get; set; }
         public String Name { get; set; }
     }
     public class DiseaseDTO
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Id { get; set; }
         public String Name { get; set; }
         public List<SymptomDTO> Symptoms { get; set; }
