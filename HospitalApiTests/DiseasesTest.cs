@@ -41,9 +41,7 @@ namespace HospitalApiTests
             //Proper Status Code
             Assert.AreEqual(HttpStatusCode.OK,result.StatusCode);
 
-            //Does not return result
-            Assert.IsNull(resultDTO);
-
+            
             //Returns all fields
             Assert.NotNull(resultDTO.Id);
             Assert.NotNull(resultDTO.Name);
