@@ -6,6 +6,8 @@ namespace HospitalApiTests
 {
     public class DiseaseDTO
     {
+
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? Id { get; set; }
         public String Name { get; set; }
@@ -14,6 +16,10 @@ namespace HospitalApiTests
         public override string ToString()
         {
             return $"Id:{Id} Name:{Name} Symptoms:{Symptoms}";
+        }
+        public bool HasAllFields()
+        {
+            return Id != null && Name != null && Symptoms.TrueForAll(s => s.HasAllFields());
         }
     }
 }

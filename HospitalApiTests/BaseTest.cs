@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace HospitalApiTests
 {
@@ -26,21 +27,37 @@ namespace HospitalApiTests
         [OneTimeSetUp]
         public async Task InitalSetup()
         {
-            client = new HttpClient {
-                BaseAddress = new Uri(baseUri),                
+            client = new HttpClient
+            {
+                BaseAddress = new Uri(baseUri),
             };
 
             var result = await client.GetAsync("");
-            
-
             Assume.That(result.IsSuccessStatusCode, "Api is not up");
+
 
 
 
         }
 
+        public async Task<SymptomDTO> NewUniqueSymptom()
+        {
+            Random r = new Random();
+            return await(await client.PostAsJsonAsync(symptomsRoute, new SymptomDTO { Name = $"UniqueSymptom{r.Next(int.MaxValue)}" }))
+               .Content
+               .ReadAsAsync<SymptomDTO>();
+        }
+
+        public async Task<DiseaseDTO> NewUniqueDisease(List<SymptomDTO> symptoms)
+        {
+            Random r = new Random();
+            return await(await client.PostAsJsonAsync(diseasesRoute, new DiseaseDTO { Name = $"UniqueDisease{r.Next(int.MaxValue)}", Symptoms=symptoms }))
+               .Content
+               .ReadAsAsync<DiseaseDTO>();
+        }
+
+
+
+
     }
-   
-    
-    
 }

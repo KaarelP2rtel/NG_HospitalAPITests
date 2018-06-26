@@ -71,14 +71,7 @@ namespace HospitalApiTests
 
             //Returns all fields
             var disease = resultContent.FirstOrDefault();
-            Assert.NotNull(disease.Id);
-            Assert.NotNull(disease.Name);
-            Assert.NotNull(disease.Symptoms);
-
-            //Disease contains symptoms
-            var symptom = disease.Symptoms.FirstOrDefault();
-            Assert.NotNull(symptom.Id);
-            Assert.NotNull(symptom.Name);
+            Assert.IsTrue(disease.HasAllFields());
 
 
         }
@@ -86,6 +79,7 @@ namespace HospitalApiTests
         [Test]
         public async Task TestPostMalformedDisease()
         {
+            #region Malformed Diseases
             var testList = new List<DiseaseDTO>
             {
                 //Empty Disease
@@ -115,7 +109,7 @@ namespace HospitalApiTests
                 //Malformed symptom
                 new DiseaseDTO
                 {
-                    
+
                     Name="asd",
                     Symptoms=new List<SymptomDTO>
                     {
@@ -128,7 +122,8 @@ namespace HospitalApiTests
                 },
 
 
-            };
+            }; 
+            #endregion
 
             foreach (var disease in testList)
             {

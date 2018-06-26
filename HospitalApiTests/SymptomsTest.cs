@@ -23,18 +23,15 @@ namespace HospitalApiTests
 
 
             var result = await client.PostAsJsonAsync(symptomsRoute, symptom);
-            TestContext.WriteLine(await result.Content.ReadAsStringAsync());
             var resultDTO = await result.Content.ReadAsAsync<SymptomDTO>();
-            
+
             //Proper Status Code
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
 
             //Returns object
             Assert.IsNotNull(resultDTO);
 
-            //Returns ID and Name
-            Assert.IsNotNull(resultDTO.Id);
-            Assert.IsNotNull(resultDTO.Name);
+            Assert.IsTrue(resultDTO.HasAllFields());
 
         }
         [Test]
@@ -46,15 +43,14 @@ namespace HospitalApiTests
             var resultContent = await result.Content.ReadAsAsync<List<SymptomDTO>>();
 
             //Proper Status Code
-            Assert.AreEqual(HttpStatusCode.OK,result.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
 
             //Returns object
             Assert.IsNotNull(result);
 
             var symptom = resultContent.FirstOrDefault();
-            Assert.NotNull(symptom?.Id);
-            Assert.NotNull(symptom?.Name);
-            
+            Assert.IsTrue(symptom.HasAllFields());
+
 
 
         }
@@ -63,6 +59,7 @@ namespace HospitalApiTests
         public async Task TestPostMalformedSymptom()
         {
 
+            #region Malformed symptoms
             var testList = new List<SymptomDTO>
             {
                 //Empty symptom
@@ -76,24 +73,29 @@ namespace HospitalApiTests
                     Id=1,
                     Name="asd",
                 },
-               
+
             };
-            foreach(var symptom in testList) { 
+            #endregion
+
+            #region Test all malformed symptoms
+            foreach (var symptom in testList)
+            {
 
 
-            var result = await client.PostAsJsonAsync(symptomsRoute, symptom);
-            
-            //Proper Status Code
-            Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode, $"This was accepted: {symptom}");
-            
+                var result = await client.PostAsJsonAsync(symptomsRoute, symptom);
 
-          
-            }
+                //Proper Status Code
+                Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode, $"This was accepted: {symptom}");
+
+
+
+            } 
+            #endregion
 
         }
 
 
-        
+
 
     }
 }

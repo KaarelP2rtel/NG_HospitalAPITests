@@ -12,5 +12,10 @@ namespace HospitalApiTests
         {
             return $"Id:{Id} Name:{Name}";
         }
+
+        internal bool HasAllFields()
+        {
+            return Id != null && Name != null;
+        }
     }
 }
