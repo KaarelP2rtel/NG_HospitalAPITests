@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using NUnit.Framework;
-using System;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -86,7 +84,7 @@ namespace HospitalApiTests
             var result = await client.PostAsJsonAsync(symptomsRoute, symptom);
             
             //Proper Status Code
-            Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode);
+            Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode, $"This was accepted: {symptom}");
             
 
           
@@ -97,18 +95,5 @@ namespace HospitalApiTests
 
         
 
-    }
-    public class SymptomDTO
-    {
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? Id { get; set; }
-        public String Name { get; set; }
-    }
-    public class DiseaseDTO
-    {
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? Id { get; set; }
-        public String Name { get; set; }
-        public List<SymptomDTO> Symptoms { get; set; }
     }
 }

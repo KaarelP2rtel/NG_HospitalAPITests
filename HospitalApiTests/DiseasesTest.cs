@@ -115,7 +115,7 @@ namespace HospitalApiTests
                 //Malformed symptom
                 new DiseaseDTO
                 {
-                    Id=11,
+                    
                     Name="asd",
                     Symptoms=new List<SymptomDTO>
                     {
@@ -139,7 +139,8 @@ namespace HospitalApiTests
 
 
                 //Proper Status Code
-                Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode);
+                Assert.AreEqual(HttpStatusCode.BadRequest,result.StatusCode,$"This was accepted: {disease}");
+                
 
              
             }
