@@ -77,10 +77,7 @@ namespace HospitalApiTests
                     Assert.IsTrue(symptom.Diseases.TrueForAll(d => d.HasAllFields()));
                 }
             }
-
-
-
-
+            
         }
 
         [Test]

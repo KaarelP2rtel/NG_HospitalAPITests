@@ -121,7 +121,10 @@
   <data name="database" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\csv\database.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="wrongfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\csv\wrongfile.pdf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="wrongtype" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\csv\wrongtype.pdf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\csv\wrongtype.odt;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

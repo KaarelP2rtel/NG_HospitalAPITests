@@ -78,6 +78,16 @@ namespace HospitalApiTests.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] wrongfile {
+            get {
+                object obj = ResourceManager.GetObject("wrongfile", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] wrongtype {
             get {
                 object obj = ResourceManager.GetObject("wrongtype", resourceCulture);

@@ -71,7 +71,7 @@ namespace HospitalApiTests
             var result = await client.GetAsync(symptomsWithDiseasesRoute);
             var diseases = await result.Content.ReadAsAsync<List<SymptomDTO>>();
 
-            var calclulatedGreatestSymptoms = diseases.OrderBy(s => s.Diseases.Count).ThenBy(s => s.Name).Take(3).ToList();
+            var calclulatedGreatestSymptoms = diseases.OrderByDescending(s => s.Diseases?.Count ?? 0).ThenBy(s => s.Name).Take(3).ToList();
             #endregion
 
             #region Find Top 3 and compare to calculated
