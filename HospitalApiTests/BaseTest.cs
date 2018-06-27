@@ -19,6 +19,7 @@ namespace HospitalApiTests
         public static string symptomsCountRoute = $"{symptomsRoute}/count";
         public static string findDiseasesRoute = $"{diseasesRoute}/find";
         public static string uploadRoute = "upload";
+        public static string symptomsWithDiseasesRoute = $"{symptomsRoute}/withDiseases";
         public HttpClient client;
 
         #endregion

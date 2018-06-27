@@ -56,6 +56,34 @@ namespace HospitalApiTests
         }
 
         [Test]
+        public async Task TestGetSymptomsWithDiseases()
+        {
+
+
+            var result = await client.GetAsync(symptomsWithDiseasesRoute);
+            var resultContent = await result.Content.ReadAsAsync<List<SymptomDTO>>();
+
+            //Proper Status Code
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+
+            //Returns object
+            Assert.IsNotNull(result);
+
+            foreach (var symptom in resultContent)
+            {
+                Assert.IsTrue(symptom.HasAllFields());
+                if ((symptom.Diseases?.Count ?? 0) > 0)
+                {
+                    Assert.IsTrue(symptom.Diseases.TrueForAll(d => d.HasAllFields()));
+                }
+            }
+
+
+
+
+        }
+
+        [Test]
         public async Task TestPostMalformedSymptom()
         {
 
@@ -89,7 +117,7 @@ namespace HospitalApiTests
 
 
 
-            } 
+            }
             #endregion
 
         }

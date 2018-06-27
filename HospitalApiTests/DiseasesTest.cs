@@ -72,6 +72,7 @@ namespace HospitalApiTests
             //Returns all fields
             var disease = resultContent.FirstOrDefault();
             Assert.IsTrue(disease.HasAllFields());
+            Assert.IsTrue(disease.Symptoms.TrueForAll(s => s.HasAllFields()));
 
 
         }

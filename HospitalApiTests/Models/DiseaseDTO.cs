@@ -17,9 +17,10 @@ namespace HospitalApiTests
         {
             return $"Id:{Id} Name:{Name} Symptoms:{Symptoms}";
         }
+        //Does not cover Symptoms
         public bool HasAllFields()
         {
-            return Id != null && Name != null && Symptoms.TrueForAll(s => s.HasAllFields());
+            return Id != null && Name != null;
         }
     }
 }

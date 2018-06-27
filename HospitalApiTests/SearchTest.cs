@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace HospitalApiTests
             result = await client.GetAsync(greatestDiseasesRoute);
             var apiGreatestDiseases = await result.Content.ReadAsAsync<List<DiseaseDTO>>();
 
-            Assert.LessOrEqual(apiGreatestDiseases.Count, 3);
+            Assert.AreEqual(apiGreatestDiseases.Count, 3);
             Assert.AreEqual(apiGreatestDiseases.Count, calclulatedGreatestDiseases.Count);
 
             for (int i = 0; i < apiGreatestDiseases.Count; i++)
@@ -55,6 +56,7 @@ namespace HospitalApiTests
 
                 Assert.AreEqual(apiDisease.Id, calculatedDisease.Id);
                 Assert.AreEqual(apiDisease.Name, calculatedDisease.Name);
+                Assert.IsTrue(apiDisease.HasAllFields());
 
             }
             #endregion
@@ -63,7 +65,36 @@ namespace HospitalApiTests
         [Test]
         public async Task TestGreatestSymptoms()
         {
-            Assume.That(false);
+
+            #region Find symptoms and calculate the top 3
+
+            var result = await client.GetAsync(symptomsWithDiseasesRoute);
+            var diseases = await result.Content.ReadAsAsync<List<SymptomDTO>>();
+
+            var calclulatedGreatestSymptoms = diseases.OrderBy(s => s.Diseases.Count).ThenBy(s => s.Name).Take(3).ToList();
+            #endregion
+
+            #region Find Top 3 and compare to calculated
+
+            result = await client.GetAsync(greatestSymptomsRoute);
+            var apiGreatestDiseases = await result.Content.ReadAsAsync<List<SymptomDTO>>();
+
+            Assert.AreEqual(apiGreatestDiseases.Count, 3);
+            Assert.AreEqual(apiGreatestDiseases.Count, calclulatedGreatestSymptoms.Count);
+
+            for (int i = 0; i < apiGreatestDiseases.Count; i++)
+            {
+                var apiSymptom = apiGreatestDiseases.ElementAt(i);
+                var calculatedSymptom = calclulatedGreatestSymptoms.ElementAt(i);
+
+                Assert.AreEqual(apiSymptom.Id, calculatedSymptom.Id);
+                Assert.AreEqual(apiSymptom.Name, calculatedSymptom.Name);
+
+                Assert.IsTrue(apiSymptom.HasAllFields());
+
+                
+            }
+            #endregion
         }
 
         [Test]
@@ -96,11 +127,31 @@ namespace HospitalApiTests
             var foundDisease = foundDiseases.FirstOrDefault();
 
             Assert.IsTrue(foundDisease.HasAllFields());
+            Assert.IsTrue(foundDisease.Symptoms.TrueForAll(s => s.HasAllFields()));
 
             Assert.AreEqual(disease.Id, foundDisease.Id);
             Assert.AreEqual(disease.Name, foundDisease.Name);
 
             #endregion
+
+        }
+        [Test]
+        public async Task TestFindWithoutId()
+        {
+
+            var list = new List<SymptomDTO>
+            {
+                new SymptomDTO
+                {
+                    Name="asd"
+                },
+                new SymptomDTO
+                {
+                    Id=1,
+                }
+            };
+            var result = await client.PostAsJsonAsync(findDiseasesRoute, list);
+            Assert.AreEqual(result.StatusCode, HttpStatusCode.BadRequest);
 
         }
 
@@ -151,9 +202,11 @@ namespace HospitalApiTests
             Assert.AreEqual(diseases.Count, 2);
 
             Assert.IsTrue(firstDisease.HasAllFields());
+            Assert.IsTrue(firstDisease.Symptoms.TrueForAll(s => s.HasAllFields()));
             Assert.AreEqual(firstDisease.Id, disease2.Id);
 
             Assert.IsTrue(secondDisease.HasAllFields());
+            Assert.IsTrue(secondDisease.Symptoms.TrueForAll(s => s.HasAllFields()));
             Assert.AreEqual(secondDisease.Id, disease1.Id);
 
             #endregion
@@ -171,9 +224,10 @@ namespace HospitalApiTests
             firstDisease = diseases.First();
 
 
-            Assert.AreEqual(diseases.Count, 1);
+            Assert.AreEqual(1,diseases.Count);
 
             Assert.IsTrue(firstDisease.HasAllFields());
+            Assert.IsTrue(firstDisease.Symptoms.TrueForAll(s => s.HasAllFields()));
             Assert.AreEqual(firstDisease.Id, disease1.Id);
 
             #endregion
