@@ -22,7 +22,7 @@ namespace HospitalApiTests.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Datasets {
+    public class Datasets {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace HospitalApiTests.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HospitalApiTests.Resources.Datasets", typeof(Datasets).Assembly);
@@ -51,7 +51,7 @@ namespace HospitalApiTests.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -69,7 +69,7 @@ namespace HospitalApiTests.Resources {
         ///Random Pavarotti Disease, spontaneous singing of operatic tunes
         ///Mad Zombie Disease, zombie-like behavior, impaired judgment, accelerated mutation, bite woun [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string database {
+        public static string database {
             get {
                 return ResourceManager.GetString("database", resourceCulture);
             }
@@ -78,7 +78,7 @@ namespace HospitalApiTests.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] wrongfile {
+        public static byte[] wrongfile {
             get {
                 object obj = ResourceManager.GetObject("wrongfile", resourceCulture);
                 return ((byte[])(obj));
@@ -88,7 +88,7 @@ namespace HospitalApiTests.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] wrongtype {
+        public static byte[] wrongtype {
             get {
                 object obj = ResourceManager.GetObject("wrongtype", resourceCulture);
                 return ((byte[])(obj));

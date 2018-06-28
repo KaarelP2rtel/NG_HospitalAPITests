@@ -38,7 +38,7 @@ namespace HospitalApiTests
             var result = await client.GetAsync(diseasesRoute);
             var diseases = await result.Content.ReadAsAsync<List<DiseaseDTO>>();
 
-            var calclulatedGreatestDiseases = diseases.OrderBy(d => d.Symptoms.Count).ThenBy(d => d.Name).Take(3).ToList();
+            var calclulatedGreatestDiseases = diseases.OrderByDescending(d => d.Symptoms.Count).ThenBy(d => d.Name).Take(3).ToList();
             #endregion
 
             #region Find Top 3 and compare to calculated
@@ -152,6 +152,25 @@ namespace HospitalApiTests
             };
             var result = await client.PostAsJsonAsync(findDiseasesRoute, list);
             Assert.AreEqual(result.StatusCode, HttpStatusCode.BadRequest);
+
+        }
+        [Test]
+        public async Task TestFindWithoutName()
+        {
+
+            var list = new List<SymptomDTO>
+            {
+                new SymptomDTO
+                {
+                    Id=2,
+                },
+                new SymptomDTO
+                {
+                    Id=1,
+                }
+            };
+            var result = await client.PostAsJsonAsync(findDiseasesRoute, list);
+            Assert.AreEqual(HttpStatusCode.OK,result.StatusCode);
 
         }
 

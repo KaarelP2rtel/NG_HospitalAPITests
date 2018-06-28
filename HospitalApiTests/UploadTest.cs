@@ -22,25 +22,22 @@ namespace HospitalApiTests
             var result = await client.PostAsync(uploadRoute, form);
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+            //TODO: assert that the correct items appear in database only once.
+            //TODO: assert malformed files
         }
-
         [Test]
-        public async Task TestWrongTypes()
+        public async Task TestClear()
         {
 
-            var form = new MultipartFormDataContent();
-            form.Add(new ByteArrayContent(Resources.Datasets.wrongtype), "database", "database.csv");
 
-            var result = await client.PostAsync(uploadRoute, form);
+            
+            var result = await client.GetAsync(clearRoute);
 
-            Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
 
-            form = new MultipartFormDataContent();
-            form.Add(new ByteArrayContent(Resources.Datasets.wrongtype), "database", "database.csv");
-
-            result = await client.PostAsync(uploadRoute, form);
-
-            Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
+            //TODO: Assert that there is nothing in the database
+            
         }
+
     }
 }

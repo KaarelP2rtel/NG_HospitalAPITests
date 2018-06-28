@@ -51,7 +51,7 @@ namespace HospitalApiTests
             var symptom = resultContent.FirstOrDefault();
             Assert.IsTrue(symptom.HasAllFields());
 
-
+            //TODO: assert based on empty Database
 
         }
 

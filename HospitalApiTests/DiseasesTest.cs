@@ -58,7 +58,7 @@ namespace HospitalApiTests
         [Test]
         public async Task TestGetDiseases()
         {
-
+            
 
             var result = await client.GetAsync(diseasesRoute);
             var resultContent = await result.Content.ReadAsAsync<List<DiseaseDTO>>();
@@ -74,6 +74,7 @@ namespace HospitalApiTests
             Assert.IsTrue(disease.HasAllFields());
             Assert.IsTrue(disease.Symptoms.TrueForAll(s => s.HasAllFields()));
 
+            //TODO: assert based on empty Database
 
         }
 
